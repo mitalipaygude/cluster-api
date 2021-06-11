@@ -575,6 +575,9 @@ func Convert_v1alpha4_ClusterConfiguration_To_v1beta1_ClusterConfiguration(in *C
 }
 
 func autoConvert_v1beta1_ClusterConfiguration_To_v1alpha4_ClusterConfiguration(in *v1beta1.ClusterConfiguration, out *ClusterConfiguration, s conversion.Scope) error {
+	// WARNING: in.Pause requires manual conversion: does not exist in peer-type
+	// WARNING: in.BottlerocketBootstrap requires manual conversion: does not exist in peer-type
+	// WARNING: in.Proxy requires manual conversion: does not exist in peer-type
 	if err := Convert_v1beta1_Etcd_To_v1alpha4_Etcd(&in.Etcd, &out.Etcd, s); err != nil {
 		return err
 	}
@@ -968,6 +971,9 @@ func Convert_v1alpha4_JoinConfiguration_To_v1beta1_JoinConfiguration(in *JoinCon
 }
 
 func autoConvert_v1beta1_JoinConfiguration_To_v1alpha4_JoinConfiguration(in *v1beta1.JoinConfiguration, out *JoinConfiguration, s conversion.Scope) error {
+	// WARNING: in.Pause requires manual conversion: does not exist in peer-type
+	// WARNING: in.BottlerocketBootstrap requires manual conversion: does not exist in peer-type
+	// WARNING: in.Proxy requires manual conversion: does not exist in peer-type
 	if err := Convert_v1beta1_NodeRegistrationOptions_To_v1alpha4_NodeRegistrationOptions(&in.NodeRegistration, &out.NodeRegistration, s); err != nil {
 		return err
 	}
@@ -1080,7 +1086,15 @@ func Convert_v1beta1_KubeadmConfigList_To_v1alpha4_KubeadmConfigList(in *v1beta1
 }
 
 func autoConvert_v1alpha4_KubeadmConfigSpec_To_v1beta1_KubeadmConfigSpec(in *KubeadmConfigSpec, out *v1beta1.KubeadmConfigSpec, s conversion.Scope) error {
-	out.ClusterConfiguration = (*v1beta1.ClusterConfiguration)(unsafe.Pointer(in.ClusterConfiguration))
+	if in.ClusterConfiguration != nil {
+		in, out := &in.ClusterConfiguration, &out.ClusterConfiguration
+		*out = new(v1beta1.ClusterConfiguration)
+		if err := Convert_v1alpha4_ClusterConfiguration_To_v1beta1_ClusterConfiguration(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.ClusterConfiguration = nil
+	}
 	if in.InitConfiguration != nil {
 		in, out := &in.InitConfiguration, &out.InitConfiguration
 		*out = new(v1beta1.InitConfiguration)
@@ -1138,7 +1152,15 @@ func Convert_v1alpha4_KubeadmConfigSpec_To_v1beta1_KubeadmConfigSpec(in *Kubeadm
 }
 
 func autoConvert_v1beta1_KubeadmConfigSpec_To_v1alpha4_KubeadmConfigSpec(in *v1beta1.KubeadmConfigSpec, out *KubeadmConfigSpec, s conversion.Scope) error {
-	out.ClusterConfiguration = (*ClusterConfiguration)(unsafe.Pointer(in.ClusterConfiguration))
+	if in.ClusterConfiguration != nil {
+		in, out := &in.ClusterConfiguration, &out.ClusterConfiguration
+		*out = new(ClusterConfiguration)
+		if err := Convert_v1beta1_ClusterConfiguration_To_v1alpha4_ClusterConfiguration(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.ClusterConfiguration = nil
+	}
 	if in.InitConfiguration != nil {
 		in, out := &in.InitConfiguration, &out.InitConfiguration
 		*out = new(InitConfiguration)
