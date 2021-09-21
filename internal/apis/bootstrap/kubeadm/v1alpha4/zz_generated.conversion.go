@@ -578,6 +578,7 @@ func autoConvert_v1beta1_ClusterConfiguration_To_v1alpha4_ClusterConfiguration(i
 	// WARNING: in.Pause requires manual conversion: does not exist in peer-type
 	// WARNING: in.BottlerocketBootstrap requires manual conversion: does not exist in peer-type
 	// WARNING: in.Proxy requires manual conversion: does not exist in peer-type
+	// WARNING: in.RegistryMirror requires manual conversion: does not exist in peer-type
 	if err := Convert_v1beta1_Etcd_To_v1alpha4_Etcd(&in.Etcd, &out.Etcd, s); err != nil {
 		return err
 	}
@@ -974,6 +975,7 @@ func autoConvert_v1beta1_JoinConfiguration_To_v1alpha4_JoinConfiguration(in *v1b
 	// WARNING: in.Pause requires manual conversion: does not exist in peer-type
 	// WARNING: in.BottlerocketBootstrap requires manual conversion: does not exist in peer-type
 	// WARNING: in.Proxy requires manual conversion: does not exist in peer-type
+	// WARNING: in.RegistryMirror requires manual conversion: does not exist in peer-type
 	if err := Convert_v1beta1_NodeRegistrationOptions_To_v1alpha4_NodeRegistrationOptions(&in.NodeRegistration, &out.NodeRegistration, s); err != nil {
 		return err
 	}
