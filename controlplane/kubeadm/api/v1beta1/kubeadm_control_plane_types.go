@@ -35,6 +35,9 @@ const (
 	// RollingUpdateStrategyType replaces the old control planes by new one using rolling update
 	// i.e. gradually scale up or down the old control planes and scale up or down the new one.
 	RollingUpdateStrategyType RolloutStrategyType = "RollingUpdate"
+
+	// InPlaceUpgradeStrategyType updates the node in place by delegating the upgrade to an external entity.
+	InPlaceUpgradeStrategyType RolloutStrategyType = "InPlace"
 )
 
 const (
@@ -64,6 +67,11 @@ const (
 	// NOTE: if something external to CAPI removes this annotation the system this can lead to
 	// failures in updating remediation retry (the counter restarts from zero).
 	RemediationForAnnotation = "controlplane.cluster.x-k8s.io/remediation-for"
+
+	// InPlaceUpgradeAnnotation is used to denote that the KCP object needs to be in-place upgraded by an external entity.
+	// This annotation will be added to the KCP object when `rolloutStrategy.type` is set to `InPlace`.
+	// The external upgrader entity should watch for the annotation and trigger an upgrade when it's added.
+	InPlaceUpgradeAnnotation = "controlplane.clusters.x-k8s.io/in-place-upgrade-needed"
 
 	// DefaultMinHealthyPeriod defines the default minimum period before we consider a remediation on a
 	// machine unrelated from the previous remediation.
