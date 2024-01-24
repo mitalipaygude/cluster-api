@@ -169,7 +169,8 @@ func (in *BottlerocketBootSettings) DeepCopyInto(out *BottlerocketBootSettings) 
 			if val == nil {
 				(*out)[key] = nil
 			} else {
-				in, out := &val, &outVal
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
 				*out = make([]string, len(*in))
 				copy(*out, *in)
 			}
