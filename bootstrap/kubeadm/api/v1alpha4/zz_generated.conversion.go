@@ -1720,6 +1720,7 @@ func Convert_v1alpha4_RegistryMirrorConfiguration_To_v1beta1_RegistryMirrorConfi
 func autoConvert_v1beta1_RegistryMirrorConfiguration_To_v1alpha4_RegistryMirrorConfiguration(in *v1beta1.RegistryMirrorConfiguration, out *RegistryMirrorConfiguration, s conversion.Scope) error {
 	out.Endpoint = in.Endpoint
 	out.CACert = in.CACert
+	// INFO: in.Mirrors opted out of conversion generation
 	return nil
 }
 
