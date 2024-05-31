@@ -378,6 +378,43 @@ endpoint = ["REGISTRY_ENDPOINT"]
 [settings.pki.registry-mirror-ca]
 data = "UkVHSVNUUllfQ0E="
 trusted=true`
+
+	kubernetesSettingsUserDataCPU = `
+[settings.host-containers.admin]
+enabled = true
+superpowered = true
+source = "ADMIN_REPO:ADMIN_TAG"
+user-data = "CnsKCSJzc2giOiB7CgkJImF1dGhvcml6ZWQta2V5cyI6IFsic3NoLXJzYSBBQUEuLi4iXQoJfQp9"
+[settings.host-containers.kubeadm-bootstrap]
+enabled = true
+superpowered = true
+source = "BOOTSTRAP_REPO:BOOTSTRAP_TAG"
+user-data = "Qk9UVExFUk9DS0VUX0JPT1RTVFJBUF9VU0VSREFUQQ=="
+
+[settings.kubernetes]
+cluster-domain = "cluster.local2"
+standalone-mode = true
+authentication-mode = "tls"
+server-tls-bootstrap = true
+pod-infra-container-image = "PAUSE_REPO:PAUSE_TAG"
+provider-id = "PROVIDERID"
+cpu-manager-policy = "static"
+cpu-manager-policy-options = ["full-pcpus-only"]
+[settings.kubernetes.eviction-hard]
+"memory.available" = "15%"
+[settings.kubernetes.eviction-soft]
+"memory.available" = "12%"
+[settings.kubernetes.eviction-soft-grace-period]
+"memory.available" = "30s"
+[settings.kubernetes.kube-reserved]
+cpu = "20m"
+[settings.kubernetes.system-reserved]
+cpu = "10m"
+ephemeral-storage = "1Gi"
+memory = "100Mi"
+
+[settings.network]
+hostname = "hostname"`
 )
 
 var (
@@ -686,11 +723,56 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 			},
 			output: registryMirrorMultipleMirrorsUserData,
 		},
+		{
+			name: "with cpu manager policy options",
+			config: &BottlerocketConfig{
+				BottlerocketAdmin:     brAdmin,
+				BottlerocketBootstrap: brBootstrap,
+				Hostname:              hostname,
+				Pause:                 pause,
+				KubeletExtraArgs: map[string]string{
+					"provider-id": "PROVIDERID",
+				},
+				BottlerocketSettings: &bootstrapv1.BottlerocketSettings{
+					Kubernetes: &bootstrapv1.BottlerocketKubernetesSettings{
+						ClusterDomain: "cluster.local2",
+						CpuManagerPolicy: "static",
+						CpuManagerPolicyOptions: map[string]string{
+							"full-pcpus-only": "true",
+						},
+						EvictionHard: map[string]string{
+							"memory.available": "15%",
+						},
+						EvictionSoft: map[string]string{
+							"memory.available": "12%",
+						},
+						EvictionSoftGracePeriod: map[string]string{
+							"memory.available": "30s",
+						},
+						KubeReserved: map[string]string{
+							"cpu": "20m",
+						},
+						SystemReserved: map[string]string{
+							"cpu":               "10m",
+							"ephemeral-storage": "1Gi",
+							"memory":            "100Mi",
+						},
+						ServerTLSBootstrap: true,
+					},
+				},
+			},
+			output: kubernetesSettingsUserDataCPU,
+		},
 	}
 	for _, testcase := range testcases {
 		t.Run(testcase.name, func(t *testing.T) {
 			b, err := getBottlerocketNodeUserData(brBootstrapUserdata, users, testcase.config)
-			println(string(b))
+			t.Log(string(b))
+			t.Log(len(string(b)))
+
+			t.Log(testcase.output)
+			t.Log(len(testcase.output))
+
 			g.Expect(err).NotTo(HaveOccurred())
 			g.Expect(string(b)).To(Equal(testcase.output))
 		})
