@@ -400,6 +400,7 @@ pod-infra-container-image = "PAUSE_REPO:PAUSE_TAG"
 provider-id = "PROVIDERID"
 cpu-manager-policy = "static"
 cpu-manager-policy-options = ["full-pcpus-only"]
+eviction-max-pod-grace-period = 10
 [settings.kubernetes.eviction-hard]
 "memory.available" = "15%"
 [settings.kubernetes.eviction-soft]
@@ -735,7 +736,7 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 				},
 				BottlerocketSettings: &bootstrapv1.BottlerocketSettings{
 					Kubernetes: &bootstrapv1.BottlerocketKubernetesSettings{
-						ClusterDomain: "cluster.local2",
+						ClusterDomain:    "cluster.local2",
 						CpuManagerPolicy: "static",
 						CpuManagerPolicyOptions: map[string]string{
 							"full-pcpus-only": "true",
@@ -743,6 +744,7 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 						EvictionHard: map[string]string{
 							"memory.available": "15%",
 						},
+						EvictionMaxPodGracePeriod: 10,
 						EvictionSoft: map[string]string{
 							"memory.available": "12%",
 						},

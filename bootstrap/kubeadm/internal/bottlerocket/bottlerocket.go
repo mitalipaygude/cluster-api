@@ -338,6 +338,7 @@ func getBottlerocketNodeUserData(bootstrapContainerUserData []byte, users []boot
 			bottlerocketInput.CpuManagerPolicyOptions = config.BottlerocketSettings.Kubernetes.CpuManagerPolicyOptions
 			bottlerocketInput.ClusterDomain = config.BottlerocketSettings.Kubernetes.ClusterDomain
 			bottlerocketInput.EvictionHard = config.BottlerocketSettings.Kubernetes.EvictionHard
+			bottlerocketInput.EvictionMaxPodGracePeriod = config.BottlerocketSettings.Kubernetes.EvictionMaxPodGracePeriod
 			bottlerocketInput.EvictionSoft = config.BottlerocketSettings.Kubernetes.EvictionSoft
 			bottlerocketInput.EvictionSoftGracePeriod = config.BottlerocketSettings.Kubernetes.EvictionSoftGracePeriod
 			bottlerocketInput.KubeReserved = config.BottlerocketSettings.Kubernetes.KubeReserved

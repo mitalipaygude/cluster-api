@@ -59,7 +59,7 @@ event-burst = {{.EventBurst}}
 event-qps = {{.EventRecordQPS}}
 {{- end -}}
 {{- if .EvictionMaxPodGracePeriod }}
-event-qps = {{.EvictionMaxPodGracePeriod}}
+eviction-max-pod-grace-period = {{.EvictionMaxPodGracePeriod}}
 {{- end -}}
 {{- if .ImageGCHighThresholdPercent }}
 image-gc-high-threshold-percent = {{.ImageGCHighThresholdPercent}}
