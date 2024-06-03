@@ -11,7 +11,6 @@ import (
 
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/yaml"
 
 	bootstrapv1 "sigs.k8s.io/cluster-api/bootstrap/kubeadm/api/v1beta1"
@@ -72,7 +71,7 @@ type BottlerocketSettingsInput struct {
 	CpuCFSQuota                     bool
 	CpuManagerPolicy                string
 	CpuManagerPolicyOptions         map[string]string
-	CpuManagerReconcilePeriod       *v1.Duration
+	// CpuManagerReconcilePeriod       string
 	EventBurst                      int
 	EventRecordQPS                  int
 	EvictionHard                    map[string]string
@@ -89,8 +88,8 @@ type BottlerocketSettingsInput struct {
 	RegistryBurst                   int
 	RegistryPullQPS                 int
 	ServerTLSBootstrap              bool
-	ShutdownGracePeriod             *v1.Duration
-	ShutdownGracePeriodCriticalPods *v1.Duration
+	// ShutdownGracePeriod             string
+	// ShutdownGracePeriodCriticalPods string
 	SystemReserved                  map[string]string
 	TopologyManagerPolicy           string
 	TopologyManagerScope            string
@@ -327,24 +326,49 @@ func getBottlerocketNodeUserData(bootstrapContainerUserData []byte, users []boot
 	}
 	if config.BottlerocketSettings != nil {
 		if config.BottlerocketSettings.Kubernetes != nil {
-			bottlerocketInput.MaxPods = config.BottlerocketSettings.Kubernetes.MaxPods
 			for _, sysctl := range config.BottlerocketSettings.Kubernetes.AllowedUnsafeSysctls {
 				bottlerocketInput.AllowedUnsafeSysctls = append(bottlerocketInput.AllowedUnsafeSysctls, strconv.Quote(sysctl))
 			}
 			for _, ip := range config.BottlerocketSettings.Kubernetes.ClusterDNSIPs {
 				bottlerocketInput.ClusterDNSIPs = append(bottlerocketInput.ClusterDNSIPs, strconv.Quote(ip))
 			}
+			bottlerocketInput.ClusterDomain = config.BottlerocketSettings.Kubernetes.ClusterDomain
+			bottlerocketInput.ContainerLogMaxFiles = config.BottlerocketSettings.Kubernetes.ContainerLogMaxFiles
+			bottlerocketInput.ContainerLogMaxSize = config.BottlerocketSettings.Kubernetes.ContainerLogMaxSize
+			bottlerocketInput.CpuCFSQuota = config.BottlerocketSettings.Kubernetes.CpuCFSQuota
 			bottlerocketInput.CpuManagerPolicy = config.BottlerocketSettings.Kubernetes.CpuManagerPolicy
 			bottlerocketInput.CpuManagerPolicyOptions = config.BottlerocketSettings.Kubernetes.CpuManagerPolicyOptions
-			bottlerocketInput.ClusterDomain = config.BottlerocketSettings.Kubernetes.ClusterDomain
+			// if config.BottlerocketSettings.Kubernetes.CpuManagerReconcilePeriod != nil {
+			// bottlerocketInput.CpuManagerReconcilePeriod = config.BottlerocketSettings.Kubernetes.CpuManagerReconcilePeriod.String()
+			// }
+			bottlerocketInput.EventBurst = config.BottlerocketSettings.Kubernetes.EventBurst
+			bottlerocketInput.EventRecordQPS = config.BottlerocketSettings.Kubernetes.EventRecordQPS
 			bottlerocketInput.EvictionHard = config.BottlerocketSettings.Kubernetes.EvictionHard
 			bottlerocketInput.EvictionMaxPodGracePeriod = config.BottlerocketSettings.Kubernetes.EvictionMaxPodGracePeriod
 			bottlerocketInput.EvictionSoft = config.BottlerocketSettings.Kubernetes.EvictionSoft
 			bottlerocketInput.EvictionSoftGracePeriod = config.BottlerocketSettings.Kubernetes.EvictionSoftGracePeriod
+			bottlerocketInput.ImageGCHighThresholdPercent = config.BottlerocketSettings.Kubernetes.ImageGCHighThresholdPercent
+			bottlerocketInput.ImageGCLowThresholdPercent = config.BottlerocketSettings.Kubernetes.ImageGCLowThresholdPercent
+			bottlerocketInput.KubeAPIBurst = config.BottlerocketSettings.Kubernetes.KubeAPIBurst
+			bottlerocketInput.KubeAPIQPS = config.BottlerocketSettings.Kubernetes.KubeAPIQPS
 			bottlerocketInput.KubeReserved = config.BottlerocketSettings.Kubernetes.KubeReserved
-			bottlerocketInput.SystemReserved = config.BottlerocketSettings.Kubernetes.SystemReserved
+			bottlerocketInput.MaxPods = config.BottlerocketSettings.Kubernetes.MaxPods
+			bottlerocketInput.MemoryManagerPolicy = config.BottlerocketSettings.Kubernetes.MemoryManagerPolicy
+			bottlerocketInput.PodPidsLimit = config.BottlerocketSettings.Kubernetes.PodPidsLimit
+			bottlerocketInput.RegistryBurst = config.BottlerocketSettings.Kubernetes.RegistryBurst
+			bottlerocketInput.RegistryPullQPS = config.BottlerocketSettings.Kubernetes.RegistryPullQPS
 			bottlerocketInput.ServerTLSBootstrap = config.BottlerocketSettings.Kubernetes.ServerTLSBootstrap
+			// if config.BottlerocketSettings.Kubernetes.ShutdownGracePeriod != nil {
+			// bottlerocketInput.ShutdownGracePeriod = config.BottlerocketSettings.Kubernetes.ShutdownGracePeriod.String()
+			// }
+			// if config.BottlerocketSettings.Kubernetes.ShutdownGracePeriodCriticalPods != nil {
+			// bottlerocketInput.ShutdownGracePeriodCriticalPods = config.BottlerocketSettings.Kubernetes.ShutdownGracePeriodCriticalPods.String()
+			// }
+			bottlerocketInput.SystemReserved = config.BottlerocketSettings.Kubernetes.SystemReserved
+			bottlerocketInput.TopologyManagerPolicy = config.BottlerocketSettings.Kubernetes.TopologyManagerPolicy
+			bottlerocketInput.TopologyManagerScope = config.BottlerocketSettings.Kubernetes.TopologyManagerScope
 		}
+
 		if config.BottlerocketSettings.Kernel != nil {
 			bottlerocketInput.SysctlSettings = parseSysctlSettings(config.BottlerocketSettings.Kernel.SysctlSettings)
 		}

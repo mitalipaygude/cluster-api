@@ -1280,9 +1280,9 @@ spec:
                               type: string
                             type: array
                           clusterDomain:
-                            description: The DNS domain for the cluster, allowing
-                              all Kubernetes-run containers to search this domain
-                              before the host’s search domains
+                            description: ClusterDomain defines the DNS domain for
+                              the cluster, allowing all Kubernetes-run containers
+                              to search this domain before the host’s search domains
                             type: string
                           containerLogMaxFiles:
                             description: ContainerLogMaxFiles specifies the maximum
@@ -1309,10 +1309,6 @@ spec:
                               which allows to set extra options to fine tune the behaviour
                               of the cpu manager policies
                             type: object
-                          cpuManagerReconcilePeriod:
-                            description: CpuManagerReconcilePeriod is the reconciliation
-                              period for the CPU Manager.
-                            type: string
                           eventBurst:
                             description: EventBurst is the maximum size of a burst
                               of event creations.
@@ -1400,16 +1396,6 @@ spec:
                             description: ServerTLSBootstrap enables server certificate
                               bootstrap.
                             type: boolean
-                          shutdownGracePeriod:
-                            description: ShutdownGracePeriod specifies the total duration
-                              that the node should delay the shutdown and total grace
-                              period for pod termination during a node shutdown.
-                            type: string
-                          shutdownGracePeriodCriticalPods:
-                            description: ShutdownGracePeriodCriticalPods specifies
-                              the duration used to terminate critical pods during
-                              a node shutdown.
-                            type: string
                           systemReserved:
                             additionalProperties:
                               type: string
@@ -2298,9 +2284,9 @@ spec:
                               type: string
                             type: array
                           clusterDomain:
-                            description: The DNS domain for the cluster, allowing
-                              all Kubernetes-run containers to search this domain
-                              before the host’s search domains
+                            description: ClusterDomain defines the DNS domain for
+                              the cluster, allowing all Kubernetes-run containers
+                              to search this domain before the host’s search domains
                             type: string
                           containerLogMaxFiles:
                             description: ContainerLogMaxFiles specifies the maximum
@@ -2327,10 +2313,6 @@ spec:
                               which allows to set extra options to fine tune the behaviour
                               of the cpu manager policies
                             type: object
-                          cpuManagerReconcilePeriod:
-                            description: CpuManagerReconcilePeriod is the reconciliation
-                              period for the CPU Manager.
-                            type: string
                           eventBurst:
                             description: EventBurst is the maximum size of a burst
                               of event creations.
@@ -2418,16 +2400,6 @@ spec:
                             description: ServerTLSBootstrap enables server certificate
                               bootstrap.
                             type: boolean
-                          shutdownGracePeriod:
-                            description: ShutdownGracePeriod specifies the total duration
-                              that the node should delay the shutdown and total grace
-                              period for pod termination during a node shutdown.
-                            type: string
-                          shutdownGracePeriodCriticalPods:
-                            description: ShutdownGracePeriodCriticalPods specifies
-                              the duration used to terminate critical pods during
-                              a node shutdown.
-                            type: string
                           systemReserved:
                             additionalProperties:
                               type: string

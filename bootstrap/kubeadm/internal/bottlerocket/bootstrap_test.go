@@ -754,6 +754,9 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 						KubeReserved: map[string]string{
 							"cpu": "20m",
 						},
+						// ShutdownGracePeriod: &v1.Duration{
+						// 	Duration: 10 * time.Second,
+						// },
 						SystemReserved: map[string]string{
 							"cpu":               "10m",
 							"ephemeral-storage": "1Gi",

@@ -49,9 +49,6 @@ cpu-manager-policy-options = ["{{ $key }}"]
 {{- end }}
 {{- end }}
 {{- end }}
-{{- if .CpuManagerReconcilePeriod }}
-cpu-manager-reconcile-period = {{.CpuManagerReconcilePeriod}}
-{{- end -}}
 {{- if .EventBurst }}
 event-burst = {{.EventBurst}}
 {{- end -}}
@@ -84,12 +81,6 @@ registry-burst = {{.RegistryBurst}}
 {{- end -}}
 {{- if .RegistryPullQPS }}
 registry-qps = {{.RegistryPullQPS}}
-{{- end -}}
-{{- if .ShutdownGracePeriod }}
-shutdown-grace-period = {{.ShutdownGracePeriod}}
-{{- end -}}
-{{- if .ShutdownGracePeriodCriticalPods }}
-shutdown-grace-period-for-critical-pods = {{.ShutdownGracePeriodCriticalPods}}
 {{- end -}}
 {{- if .TopologyManagerPolicy }}
 topology-manager-policy = {{.TopologyManagerPolicy}}

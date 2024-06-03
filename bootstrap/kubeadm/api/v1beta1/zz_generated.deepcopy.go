@@ -295,11 +295,6 @@ func (in *BottlerocketKubernetesSettings) DeepCopyInto(out *BottlerocketKubernet
 			(*out)[key] = val
 		}
 	}
-	if in.CpuManagerReconcilePeriod != nil {
-		in, out := &in.CpuManagerReconcilePeriod, &out.CpuManagerReconcilePeriod
-		*out = new(v1.Duration)
-		**out = **in
-	}
 	if in.EvictionHard != nil {
 		in, out := &in.EvictionHard, &out.EvictionHard
 		*out = make(map[string]string, len(*in))
@@ -327,16 +322,6 @@ func (in *BottlerocketKubernetesSettings) DeepCopyInto(out *BottlerocketKubernet
 		for key, val := range *in {
 			(*out)[key] = val
 		}
-	}
-	if in.ShutdownGracePeriod != nil {
-		in, out := &in.ShutdownGracePeriod, &out.ShutdownGracePeriod
-		*out = new(v1.Duration)
-		**out = **in
-	}
-	if in.ShutdownGracePeriodCriticalPods != nil {
-		in, out := &in.ShutdownGracePeriodCriticalPods, &out.ShutdownGracePeriodCriticalPods
-		*out = new(v1.Duration)
-		**out = **in
 	}
 	if in.SystemReserved != nil {
 		in, out := &in.SystemReserved, &out.SystemReserved

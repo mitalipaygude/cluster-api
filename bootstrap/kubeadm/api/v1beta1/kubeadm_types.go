@@ -24,7 +24,6 @@ import (
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	bootstrapapi "k8s.io/cluster-bootstrap/token/api"
 	bootstraputil "k8s.io/cluster-bootstrap/token/util"
 )
@@ -220,7 +219,7 @@ type BottlerocketKubernetesSettings struct {
 	// ClusterDNSIPs defines IP addresses of the DNS servers.
 	ClusterDNSIPs []string `json:"clusterDNSIPs,omitempty"`
 
-	// The DNS domain for the cluster, allowing all Kubernetes-run containers
+	// ClusterDomain defines the DNS domain for the cluster, allowing all Kubernetes-run containers
 	// to search this domain before the host’s search domains
 	ClusterDomain string `json:"clusterDomain,omitempty"`
 
@@ -243,7 +242,7 @@ type BottlerocketKubernetesSettings struct {
 	CpuManagerPolicyOptions map[string]string `json:"cpuManagerPolicyOptions,omitempty"`
 
 	// CpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
-	CpuManagerReconcilePeriod *v1.Duration `json:"cpuManagerReconcilePeriod,omitempty"`
+	// CpuManagerReconcilePeriod *v1.Duration `json:"cpuManagerReconcilePeriod,omitempty"`
 
 	// EventBurst is the maximum size of a burst of event creations.
 	EventBurst int `json:"eventBurst,omitempty"`
@@ -254,18 +253,18 @@ type BottlerocketKubernetesSettings struct {
 	// EvictionHard is a map of signal names to quantities that defines hard eviction thresholds.
 	EvictionHard map[string]string `json:"evictionHard,omitempty"`
 
-	// EvictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use 
+	// EvictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 	// when terminating pods in response to a soft eviction threshold being met.
 	EvictionMaxPodGracePeriod int `json:"evictionMaxPodGracePeriod,omitempty"`
 
 	// EvictionSoft is a map of signal names to quantities that defines soft eviction thresholds.
-	EvictionSoft map[string]string	`json:"evictionSoft,omitempty"`
+	EvictionSoft map[string]string `json:"evictionSoft,omitempty"`
 
-	// EvictionSoftGracePeriod is a map of signal names to quantities that defines grace periods 
+	// EvictionSoftGracePeriod is a map of signal names to quantities that defines grace periods
 	// for each soft eviction signal.
 	EvictionSoftGracePeriod map[string]string `json:"evictionSoftGracePeriod,omitempty"`
 
-	// ImageGCHighThresholdPercent is the percent of disk usage after which image garbage 
+	// ImageGCHighThresholdPercent is the percent of disk usage after which image garbage
 	// collection is always run.
 	ImageGCHighThresholdPercent int `json:"imageGCHighThresholdPercent,omitempty"`
 
@@ -278,7 +277,7 @@ type BottlerocketKubernetesSettings struct {
 	// KubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
 	KubeAPIQPS int `json:"kubeAPIQPS,omitempty"`
 
-	// KubeReserved is a set of ResourceName=ResourceQuantity pairs that describe resources 
+	// KubeReserved is a set of ResourceName=ResourceQuantity pairs that describe resources
 	// reserved for kubernetes system components
 	KubeReserved map[string]string `json:"kubeReserved,omitempty"`
 
@@ -303,23 +302,23 @@ type BottlerocketKubernetesSettings struct {
 	// ServerTLSBootstrap enables server certificate bootstrap.
 	ServerTLSBootstrap bool `json:"serverTLSBootstrap,omitempty"`
 
-	// ShutdownGracePeriod specifies the total duration that the node should delay 
+	// ShutdownGracePeriod specifies the total duration that the node should delay
 	// the shutdown and total grace period for pod termination during a node shutdown.
-	ShutdownGracePeriod *v1.Duration `json:"shutdownGracePeriod,omitempty"`
+	// ShutdownGracePeriod *v1.Duration `json:"shutdownGracePeriod,omitempty"`
 
 	// ShutdownGracePeriodCriticalPods specifies the duration used to terminate
 	// critical pods during a node shutdown.
-	ShutdownGracePeriodCriticalPods *v1.Duration `json:"shutdownGracePeriodCriticalPods,omitempty"`
+	// ShutdownGracePeriodCriticalPods *v1.Duration `json:"shutdownGracePeriodCriticalPods,omitempty"`
 
 	// SystemReserved is a set of ResourceName=ResourceQuantity pairs that describe
 	// resources reserved for non-kubernetes components.
-	SystemReserved map[string]string `json:"systemReserved,omitempty"`	
+	SystemReserved map[string]string `json:"systemReserved,omitempty"`
 
 	// TopologyManagerPolicy is the name of the topology manager policy to use.
 	TopologyManagerPolicy string `json:"topologyManagerPolicy,omitempty"`
 
 	// TopologyManagerScope represents the scope of topology hint generation
-	// that topology manager requests and hint providers generate. 
+	// that topology manager requests and hint providers generate.
 	TopologyManagerScope string `json:"topologyManagerScope,omitempty"`
 }
 
