@@ -335,7 +335,7 @@ func getBottlerocketNodeUserData(bootstrapContainerUserData []byte, users []boot
 			bottlerocketInput.ClusterDomain = config.BottlerocketSettings.Kubernetes.ClusterDomain
 			bottlerocketInput.ContainerLogMaxFiles = config.BottlerocketSettings.Kubernetes.ContainerLogMaxFiles
 			bottlerocketInput.ContainerLogMaxSize = config.BottlerocketSettings.Kubernetes.ContainerLogMaxSize
-			bottlerocketInput.CpuCFSQuota = config.BottlerocketSettings.Kubernetes.CpuCFSQuota
+			// bottlerocketInput.CpuCFSQuota = config.BottlerocketSettings.Kubernetes.CpuCFSQuota
 			bottlerocketInput.CpuManagerPolicy = config.BottlerocketSettings.Kubernetes.CpuManagerPolicy
 			bottlerocketInput.CpuManagerPolicyOptions = config.BottlerocketSettings.Kubernetes.CpuManagerPolicyOptions
 			// if config.BottlerocketSettings.Kubernetes.CpuManagerReconcilePeriod != nil {
@@ -357,7 +357,7 @@ func getBottlerocketNodeUserData(bootstrapContainerUserData []byte, users []boot
 			bottlerocketInput.PodPidsLimit = config.BottlerocketSettings.Kubernetes.PodPidsLimit
 			bottlerocketInput.RegistryBurst = config.BottlerocketSettings.Kubernetes.RegistryBurst
 			bottlerocketInput.RegistryPullQPS = config.BottlerocketSettings.Kubernetes.RegistryPullQPS
-			bottlerocketInput.ServerTLSBootstrap = config.BottlerocketSettings.Kubernetes.ServerTLSBootstrap
+			// bottlerocketInput.ServerTLSBootstrap = config.BottlerocketSettings.Kubernetes.ServerTLSBootstrap
 			// if config.BottlerocketSettings.Kubernetes.ShutdownGracePeriod != nil {
 			// bottlerocketInput.ShutdownGracePeriod = config.BottlerocketSettings.Kubernetes.ShutdownGracePeriod.String()
 			// }

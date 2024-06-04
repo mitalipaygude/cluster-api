@@ -12,11 +12,7 @@ cluster-domain = "cluster.local"
 {{- end }}
 standalone-mode = true
 authentication-mode = "tls"
-{{- if .ServerTLSBootstrap }}
-server-tls-bootstrap = {{.ServerTLSBootstrap}}
-{{- else }}
 server-tls-bootstrap = false
-{{- end }}
 pod-infra-container-image = "{{.PauseContainerSource}}"
 {{- if (ne .ProviderID "")}}
 provider-id = "{{.ProviderID}}"
@@ -34,10 +30,7 @@ max-pods = {{.MaxPods}}
 container-log-max-files = {{.ContainerLogMaxFiles}}
 {{- end -}}
 {{- if .ContainerLogMaxSize }}
-container-log-max-size = {{.ContainerLogMaxSize}}
-{{- end -}}
-{{- if .CpuCFSQuota }}
-cpu-cfs-quota-enforced = {{.CpuCFSQuota}}
+container-log-max-size = "{{.ContainerLogMaxSize}}"
 {{- end -}}
 {{- if .CpuManagerPolicy }}
 cpu-manager-policy = "{{.CpuManagerPolicy}}"
@@ -71,7 +64,7 @@ kube-api-burst = {{.KubeAPIBurst}}
 kube-api-qps = {{.KubeAPIQPS}}
 {{- end -}}
 {{- if .MemoryManagerPolicy }}
-memory-manager-policy = {{.MemoryManagerPolicy}}
+memory-manager-policy = "{{.MemoryManagerPolicy}}"
 {{- end -}}
 {{- if .PodPidsLimit }}
 pod-pids-limit = {{.PodPidsLimit}}
@@ -83,10 +76,10 @@ registry-burst = {{.RegistryBurst}}
 registry-qps = {{.RegistryPullQPS}}
 {{- end -}}
 {{- if .TopologyManagerPolicy }}
-topology-manager-policy = {{.TopologyManagerPolicy}}
+topology-manager-policy = "{{.TopologyManagerPolicy}}"
 {{- end -}}
 {{- if .TopologyManagerScope }}
-topology-manager-scope = {{.TopologyManagerScope}}
+topology-manager-scope = "{{.TopologyManagerScope}}"
 {{- end -}}
 {{- end -}}
 `

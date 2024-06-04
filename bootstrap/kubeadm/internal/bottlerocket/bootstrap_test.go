@@ -395,12 +395,25 @@ user-data = "Qk9UVExFUk9DS0VUX0JPT1RTVFJBUF9VU0VSREFUQQ=="
 cluster-domain = "cluster.local2"
 standalone-mode = true
 authentication-mode = "tls"
-server-tls-bootstrap = true
+server-tls-bootstrap = false
 pod-infra-container-image = "PAUSE_REPO:PAUSE_TAG"
 provider-id = "PROVIDERID"
+container-log-max-files = 10
+container-log-max-size = "5Mi"
 cpu-manager-policy = "static"
 cpu-manager-policy-options = ["full-pcpus-only"]
+event-burst = 200
+event-qps = 100
 eviction-max-pod-grace-period = 10
+image-gc-high-threshold-percent = 26
+image-gc-low-threshold-percent = 19
+kube-api-burst = 80
+memory-manager-policy = "Static"
+pod-pids-limit = 10
+registry-burst = 11
+registry-qps = 1
+topology-manager-policy = "restricted"
+topology-manager-scope = "pod"
 [settings.kubernetes.eviction-hard]
 "memory.available" = "15%"
 [settings.kubernetes.eviction-soft]
@@ -736,11 +749,16 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 				},
 				BottlerocketSettings: &bootstrapv1.BottlerocketSettings{
 					Kubernetes: &bootstrapv1.BottlerocketKubernetesSettings{
-						ClusterDomain:    "cluster.local2",
-						CpuManagerPolicy: "static",
+						ClusterDomain:        "cluster.local2",
+						ContainerLogMaxFiles: 10,
+						ContainerLogMaxSize:  "5Mi",
+						// CpuCFSQuota:          true,
+						CpuManagerPolicy:     "static",
 						CpuManagerPolicyOptions: map[string]string{
 							"full-pcpus-only": "true",
 						},
+						EventBurst: 200,
+						EventRecordQPS: 100,
 						EvictionHard: map[string]string{
 							"memory.available": "15%",
 						},
@@ -751,9 +769,16 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 						EvictionSoftGracePeriod: map[string]string{
 							"memory.available": "30s",
 						},
+						ImageGCHighThresholdPercent: 26,
+						ImageGCLowThresholdPercent: 19,
+						KubeAPIBurst: 80,
 						KubeReserved: map[string]string{
 							"cpu": "20m",
 						},
+						MemoryManagerPolicy: "Static",
+						PodPidsLimit: 10,
+						RegistryBurst: 11,
+						RegistryPullQPS: 1,
 						// ShutdownGracePeriod: &v1.Duration{
 						// 	Duration: 10 * time.Second,
 						// },
@@ -762,7 +787,9 @@ func TestGetBottlerocketNodeUserData(t *testing.T) {
 							"ephemeral-storage": "1Gi",
 							"memory":            "100Mi",
 						},
-						ServerTLSBootstrap: true,
+						// ServerTLSBootstrap: true,
+						TopologyManagerPolicy: "restricted",
+						TopologyManagerScope: "pod",
 					},
 				},
 			},
