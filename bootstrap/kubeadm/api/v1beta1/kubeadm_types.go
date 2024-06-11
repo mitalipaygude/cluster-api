@@ -300,9 +300,6 @@ type BottlerocketKubernetesSettings struct {
 	// RegistryPullQPS is the limit of registry pulls per second.
 	RegistryPullQPS int `json:"registryPullQPS,omitempty"`
 
-	// ServerTLSBootstrap enables server certificate bootstrap.
-	ServerTLSBootstrap *bool `json:"serverTLSBootstrap,omitempty"`
-
 	// ShutdownGracePeriod specifies the total duration that the node should delay
 	// the shutdown and total grace period for pod termination during a node shutdown.
 	ShutdownGracePeriod *v1.Duration `json:"shutdownGracePeriod,omitempty"`

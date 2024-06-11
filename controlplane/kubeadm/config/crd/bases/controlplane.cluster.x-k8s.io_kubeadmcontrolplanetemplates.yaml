@@ -1636,10 +1636,6 @@ spec:
                                         description: RegistryPullQPS is the limit
                                           of registry pulls per second.
                                         type: integer
-                                      serverTLSBootstrap:
-                                        description: ServerTLSBootstrap enables server
-                                          certificate bootstrap.
-                                        type: boolean
                                       shutdownGracePeriod:
                                         description: ShutdownGracePeriod specifies
                                           the total duration that the node should
@@ -2761,10 +2757,6 @@ spec:
                                         description: RegistryPullQPS is the limit
                                           of registry pulls per second.
                                         type: integer
-                                      serverTLSBootstrap:
-                                        description: ServerTLSBootstrap enables server
-                                          certificate bootstrap.
-                                        type: boolean
                                       shutdownGracePeriod:
                                         description: ShutdownGracePeriod specifies
                                           the total duration that the node should

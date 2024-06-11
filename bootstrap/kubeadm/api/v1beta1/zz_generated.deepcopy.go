@@ -333,11 +333,6 @@ func (in *BottlerocketKubernetesSettings) DeepCopyInto(out *BottlerocketKubernet
 			(*out)[key] = val
 		}
 	}
-	if in.ServerTLSBootstrap != nil {
-		in, out := &in.ServerTLSBootstrap, &out.ServerTLSBootstrap
-		*out = new(bool)
-		**out = **in
-	}
 	if in.ShutdownGracePeriod != nil {
 		in, out := &in.ShutdownGracePeriod, &out.ShutdownGracePeriod
 		*out = new(v1.Duration)

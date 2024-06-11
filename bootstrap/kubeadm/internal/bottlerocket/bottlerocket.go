@@ -87,7 +87,6 @@ type SettingsInput struct {
 	PodPidsLimit                    int64
 	RegistryBurst                   int
 	RegistryPullQPS                 int
-	ServerTLSBootstrap              *bool
 	ShutdownGracePeriod             string
 	ShutdownGracePeriodCriticalPods string
 	SystemReserved                  map[string]string
